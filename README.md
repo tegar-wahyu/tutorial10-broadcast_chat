@@ -42,3 +42,23 @@ dapat terhubung ke server.
 
 Program akan berjalan seperti biasa dengan port yang telah diubah seperti pada gambar di bawah ini.
 ![modify_port.png](images/modify_port.png)
+
+## 2.3. Small changes, add some information to client
+
+![img.png](images/sender_info.png)
+
+Pada gambar di atas, saya menambahkan sedikit informasi sender ke setiap client dengan
+menambahkan informasi nama host-nya, yaitu "Tegar". Saya menggunakan dependency `gethostname` dan 
+menambahkannya ke dalam Cargo.toml. Kemudian Saya menggunakan kode berikut untuk mendapatkan
+hostname dari client:
+```rust
+let hostname = gethostname().into_string().unwrap_or_else(|_| "unknown".to_string());
+```
+dan mengubah pesan yang dikirimkan oleh client menjadi:
+```rust
+println!("{}'s computer - From server: {}", hostname, text);
+```
+tidak lupa juga menambahkan informasi hostname pada server:
+```rust
+println!("New connection from {}'s Computer {} ", hostname, addr);
+```
